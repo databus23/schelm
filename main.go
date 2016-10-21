@@ -49,7 +49,7 @@ func main() {
 
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Split(scanYamlSpecs)
-	//Allow for tokens (specs) up to 1M when parsing the manifest
+	//Allow for tokens (specs) up to 1M in size
 	scanner.Buffer(make([]byte, bufio.MaxScanTokenSize), 1048576)
 	//Discard the first result, we only care about everything after the first seperator
 	scanner.Scan()
