@@ -1,4 +1,4 @@
-Render a [helm](https://github.com/kubernetes/helm) manifest to a directory structure
+Render a [helm](https://github.com/kubernetes/helm) manifest to a directory.
 
 # Installation
 ```
@@ -23,13 +23,13 @@ helm get RELEASE manifest | schelm OUPUT_DIR
 # Example:
 
 ```
-➜ helm get eloping-saola manifest | schelm ouput
-2016/10/21 15:50:12 Writing ouput/mariadb/templates/deployment.yaml
-2016/10/21 15:50:12 Writing ouput/mariadb/templates/pvc.yaml
-2016/10/21 15:50:12 Writing ouput/mariadb/templates/secrets.yaml
-2016/10/21 15:50:12 Writing ouput/mariadb/templates/svc.yaml
-➜ tree ouput/
-ouput/
+➜ helm get eloping-saola manifest | schelm output/
+2016/10/21 15:50:12 Writing output/mariadb/templates/deployment.yaml
+2016/10/21 15:50:12 Writing output/mariadb/templates/pvc.yaml
+2016/10/21 15:50:12 Writing output/mariadb/templates/secrets.yaml
+2016/10/21 15:50:12 Writing output/mariadb/templates/svc.yaml
+➜ tree output/
+output/
 └── mariadb
     └── templates
         ├── deployment.yaml
