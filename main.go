@@ -3,12 +3,24 @@ package main
 import (
 	"bufio"
 	"bytes"
+	"flag"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
 	"path"
 	"strings"
 )
+
+var force bool = false
+
+func init() {
+	flag.BoolVar(&force, "f", false, "Delete existing output directory")
+	flag.Usage = func() {
+		fmt.Fprintf(os.Stderr, "Usage: schelm [options] OUTPUT_DIR\n")
+		flag.PrintDefaults()
+	}
+}
 
 var yamlSeperator = []byte("---\n# Source: ")
 
@@ -37,14 +49,22 @@ func splitSpec(token string) (string, string) {
 
 func main() {
 
-	if len(os.Args) < 2 {
-		log.Fatalf("usage: %s OUTPUT_DIRECTORY", os.Args[0])
+	flag.Parse()
+
+	if flag.Arg(0) == "" {
+		flag.Usage()
+		os.Exit(1)
 	}
 
-	output_directory := os.Args[1]
+	output_directory := flag.Arg(0)
 
 	if _, err := os.Stat(output_directory); !os.IsNotExist(err) {
-		log.Fatalf(`Output directory "%v" already exists`, output_directory)
+		if force {
+			log.Printf("Deleting %s (force)\n", output_directory)
+			os.RemoveAll(output_directory)
+		} else {
+			log.Fatalf(`Output directory "%v" already exists. Use -f to delete it.`, output_directory)
+		}
 	}
 
 	scanner := bufio.NewScanner(os.Stdin)
