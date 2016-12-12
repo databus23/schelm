@@ -16,7 +16,7 @@ helm install --dry-run --debug CHART | schelm OUTPUT_DIR
 
 or
 
-helm get RELEASE manifest | schelm OUPUT_DIR
+helm get RELEASE manifest | schelm OUTPUT_DIR
 
 ```
 
