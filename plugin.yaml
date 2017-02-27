@@ -1,0 +1,16 @@
+name: "schelm"
+version: "0.1.0"
+usage: "Render a helm manifest to a directory"
+description: |-
+  The schelm command ingests a helm manifest via STDIN and renders
+  the kubernetes templates into a directory structure according
+  to the "# Source:" comments from the manifest.
+
+  Examples:
+    helm install --dry-run --debug CHART | helm schelm OUTPUT_DIR
+    helm upgrade --dry-run --debug CHART | helm schelm OUTPUT_DIR
+    helm get RELEASE manifest | helm schelm OUTPUT_DIR
+
+ignoreFlags: false
+useTunnel: false
+command: "$HELM_PLUGIN_DIR/schelm"
