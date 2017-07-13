@@ -81,9 +81,19 @@ func main() {
 		if err := os.MkdirAll(dir, 0750); err != nil {
 			log.Fatalf("Error creating %s: %s ", dir, err)
 		}
-		log.Printf("Writing %s", destinationFile)
-		if err := ioutil.WriteFile(destinationFile, []byte(content), 0640); err != nil {
-			log.Fatalf("Error: %s", err)
+		if _, err := os.Stat(destinationFile); os.IsNotExist(err) {
+			log.Printf("Creating %s", destinationFile)
+			if err := ioutil.WriteFile(destinationFile, []byte(content), 0640); err != nil {
+				log.Fatalf("Error: %s", err)
+			}
+		} else {
+			f, err := os.OpenFile(destinationFile, os.O_APPEND|os.O_WRONLY, 0640)
+			if err != nil {
+				log.Fatalf("Error re-opening file %s: %s", destinationFile, err)
+			}
+			f.WriteString("\n---\n")
+			f.WriteString(content)
+			f.Close()
 		}
 	}
 
