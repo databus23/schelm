@@ -6,6 +6,7 @@ go get -u github.com/databus23/schelm
 ```
 # Usage:
 
+## Helm 2:
 ```
 helm install --dry-run --debug CHART > manifest.txt
 schelm OUTPUT_DIR < manifest.txt
@@ -18,6 +19,20 @@ or
 
 helm get RELEASE manifest | schelm OUTPUT_DIR
 
+```
+
+## Helm 3:
+```
+helm install --dry-run --debug CHART > manifest.txt
+schelm OUTPUT_DIR < manifest.txt
+
+or
+
+helm install --dry-run --debug CHART | schelm OUTPUT_DIR
+
+or
+
+helm get manifest RELEASE | schelm output/ 
 ```
 
 # Example:
